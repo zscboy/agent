@@ -2,6 +2,7 @@ package restore
 
 import (
 	"fmt"
+	"g"
 	"log"
 	"net/http"
 )
@@ -34,7 +35,7 @@ func (mux *myHttpServerMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var uniqueId, tok = VerifyToken(r)
 	if !tok {
 		log.Println("token expired, path is:", r.URL.Path)
-//		replyError(w, codedef.ERR_TOKEN_EXPIRED)
+		//		replyError(w, codedef.ERR_TOKEN_EXPIRED)
 		return
 	}
 
@@ -43,7 +44,7 @@ func (mux *myHttpServerMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateHttpServer() {
-	portStr := fmt.Sprintf(":%d", 8990)
+	portStr := fmt.Sprintf(":%d", g.Config().Http.Listen)
 	s := &http.Server{
 		Addr:    portStr,
 		Handler: myMux,
@@ -56,7 +57,7 @@ func CreateHttpServer() {
 }
 
 func acceptRequest(s *http.Server) {
-	log.Printf("Http server listen at:%d\n", 8990)
+	log.Printf("Http server listen at:%d\n", g.Config().Http.Listen)
 
 	err := s.ListenAndServe()
 	if err != nil {
