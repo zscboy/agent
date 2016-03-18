@@ -44,6 +44,8 @@ func main() {
 	cron.SyncTrustableIps()
 	cron.Collect()
 
+	restore.CreateHttpServer()
+
 	go http.Start()
 
 	select {}
