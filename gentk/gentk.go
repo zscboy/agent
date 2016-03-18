@@ -1,4 +1,4 @@
-package restore
+package gentk
 
 import (
 	"crypto/aes"
@@ -41,7 +41,7 @@ func timeNow() int {
 	return int(unix)
 }
 
-func verifyToken(r *http.Request) (string, bool) {
+func VerifyToken(r *http.Request) (string, bool) {
 	var tk = r.Header.Get("tk")
 
 	if tk == "" {
