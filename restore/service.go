@@ -1,10 +1,7 @@
-package userserv
+package restore
 
 import (
-	"codedef"
-	"config"
 	"fmt"
-	"gentk"
 	"log"
 	"net/http"
 )
@@ -34,10 +31,10 @@ func (mux *myHttpServerMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var uniqueId, tok = gentk.VerifyToken(r)
+	var uniqueId, tok = VerifyToken(r)
 	if !tok {
 		log.Println("token expired, path is:", r.URL.Path)
-		replyError(w, codedef.ERR_TOKEN_EXPIRED)
+//		replyError(w, codedef.ERR_TOKEN_EXPIRED)
 		return
 	}
 
@@ -46,7 +43,7 @@ func (mux *myHttpServerMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateHttpServer() {
-	portStr := fmt.Sprintf(":%d", config.UServerPort)
+	portStr := fmt.Sprintf(":%d", 8990)
 	s := &http.Server{
 		Addr:    portStr,
 		Handler: myMux,
@@ -59,7 +56,7 @@ func CreateHttpServer() {
 }
 
 func acceptRequest(s *http.Server) {
-	log.Printf("Http server listen at:%d\n", config.UServerPort)
+	log.Printf("Http server listen at:%d\n", 8990)
 
 	err := s.ListenAndServe()
 	if err != nil {
