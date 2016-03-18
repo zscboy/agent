@@ -2,14 +2,15 @@ package http
 
 import (
 	"encoding/json"
-	"gentk"
-	"github.com/open-falcon/agent/g"
-	"github.com/toolkits/sys"
+	"github.com/open-falcon/agent/gentk"
 	"io/ioutil"
 	"net/http"
+         "fmt"
+         "log"
+          "os/exec"
 )
 
-var {
+var (
 	LISTEN_PORT = "net.port.listen"
 	PROBLEM = "PROBLEM"
 	WXSERVER_HTTPS_PORT = "4005"
@@ -17,7 +18,7 @@ var {
 	WXSERVER_WEB_PORT = "3001"
 	WXSERVER_DEV_PORT = "17273"
 	REDIS_PORT = "6379"
-}
+)
 func configRestoreRoutes() {
 	http.HandleFunc("/restore", func(w http.ResponseWriter, r *http.Request) {
 		var uniqueId, tok = gentk.VerifyToken(r)
@@ -54,7 +55,7 @@ func configRestoreRoutes() {
 		}
 
 		var event Event
-		err := json.Unmarshal(bs, &event)
+		err = json.Unmarshal(bs, &event)
 		if err != nil {
 			log.Println("onCreateDelayTask failed, json decode failed:", err)
 			return
@@ -68,7 +69,7 @@ func configRestoreRoutes() {
 			return
 		}
 
-		swich(tags) {
+		switch tags {
 			case WXSERVER_HTTPS_PORT:
 			case WXSERVER_HTTP_PORT:
 			case WXSERVER_WEB_PORT:
@@ -78,15 +79,12 @@ func configRestoreRoutes() {
 
 			case REDIS_PORT:
 				restartRedis()
-				break
+				break;
+			default:
+			      test()
+                             break;
 		}
 
-		cmd := "./restartWxserver.sh"
-		out, err := exec.Command("sh", "-c", cmd).Output()
-		if err != nil {
-			fmt.Printf("%s", err)
-		}
-		fmt.Printf("%s", out)
 
 	})
 }

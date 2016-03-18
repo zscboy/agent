@@ -8,7 +8,6 @@ import (
 	"github.com/open-falcon/agent/g"
 	"github.com/open-falcon/agent/http"
 	"os"
-        "github.com/open-falcon/agent/restore"
 )
 
 func main() {
@@ -45,7 +44,6 @@ func main() {
 	cron.SyncTrustableIps()
 	cron.Collect()
 
-	restore.CreateHttpServer()
 
 	go http.Start()
 
