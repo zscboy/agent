@@ -32,7 +32,7 @@ func (mux *myHttpServerMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var uniqueId, tok = VerifyToken(r)
+	var uniqueId, tok = verifyToken(r)
 	if !tok {
 		log.Println("token expired, path is:", r.URL.Path)
 		//		replyError(w, codedef.ERR_TOKEN_EXPIRED)
