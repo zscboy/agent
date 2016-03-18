@@ -41,7 +41,7 @@ func timeNow() int {
 	return int(unix)
 }
 
-func VerifyToken(r *http.Request) (string, bool) {
+func verifyToken(r *http.Request) (string, bool) {
 	var tk = r.Header.Get("tk")
 
 	if tk == "" {
@@ -51,13 +51,13 @@ func VerifyToken(r *http.Request) (string, bool) {
 	return ParseTK(tk)
 }
 
-func GenTK(account string) string {
+func genTK(account string) string {
 	var plainTK = fmt.Sprintf("%s@%d", account, timeNow())
 	log.Println("GenTK, plainTK is:", plainTK)
 	return encrypt(mykey, plainTK)
 }
 
-func ParseTK(token string) (string, bool) {
+func parseTK(token string) (string, bool) {
 	log.Printf("ParseTk, tok:%s, len:%d\n", token, len(token))
 	var plainTK, err = decrypt(mykey, token)
 	if err != nil {

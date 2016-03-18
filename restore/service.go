@@ -44,6 +44,10 @@ func (mux *myHttpServerMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateHttpServer() {
+	addr := g.Config().Http.Listen
+	if addr == "" {
+		return
+	}
 	portStr := fmt.Sprintf(":%d", g.Config().Http.Listen)
 	s := &http.Server{
 		Addr:    portStr,
