@@ -2,7 +2,7 @@ package restore
 
 import (
 	"fmt"
-	"g"
+	"github.com/open-falcon/agent/g"
 	"log"
 	"net/http"
 )
@@ -44,7 +44,7 @@ func (mux *myHttpServerMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateHttpServer() {
-	portStr := fmt.Sprintf(":%d", g.Config().Http.Listen)
+	portStr := fmt.Sprintf("%s", g.Config().Http.Listen)
 	s := &http.Server{
 		Addr:    portStr,
 		Handler: myMux,
@@ -57,7 +57,7 @@ func CreateHttpServer() {
 }
 
 func acceptRequest(s *http.Server) {
-	log.Printf("Http server listen at:%d\n", g.Config().Http.Listen)
+	log.Printf("Http server listen at:%s\n", g.Config().Http.Listen)
 
 	err := s.ListenAndServe()
 	if err != nil {
