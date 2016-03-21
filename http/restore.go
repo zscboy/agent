@@ -15,11 +15,11 @@ import (
 var (
 	LISTEN_PORT              = "net.port.listen"
 	PROBLEM                  = "PROBLEM"
-	TAGS_WXSERVER_HTTPS_PORT = "port=4005"
-	TAGS_WXSERVER_HTTP_PORT  = "port=4002"
-	TAGS_WXSERVER_WEB_PORT   = "port=3001"
-	TAGS_WXSERVER_DEV_PORT   = "port=17273"
-	TAGS_REDIS_PORT          = "port=6379"
+	TAGS_WXSERVER_HTTPS_PORT = "port:4005"
+	TAGS_WXSERVER_HTTP_PORT  = "port:4002"
+	TAGS_WXSERVER_WEB_PORT   = "port:3001"
+	TAGS_WXSERVER_DEV_PORT   = "port:17273"
+	TAGS_REDIS_PORT          = "port:6379"
 )
 
 func configRestoreRoutes() {
@@ -72,6 +72,7 @@ func configRestoreRoutes() {
 			return
 		}
 
+                log.Println("tags: ", tags)
 		switch tags {
 		case TAGS_WXSERVER_HTTPS_PORT:
 		case TAGS_WXSERVER_HTTP_PORT:
@@ -92,6 +93,7 @@ func configRestoreRoutes() {
 }
 
 func restartWxserver() {
+        log.Println("restartWxserver")
 	dir := g.Config().Plugin.Dir
 	parentDir := file.Dir(dir)
 	cmd := exec.Command(dir + "/restartWxserver.sh")
