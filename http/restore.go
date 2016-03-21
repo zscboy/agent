@@ -3,6 +3,9 @@ package http
 import (
 	"encoding/json"
 	"github.com/open-falcon/agent/gentk"
+        "github.com/open-falcon/agent/g"
+        "github.com/toolkits/file"
+        "fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
