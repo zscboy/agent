@@ -4,21 +4,21 @@ import (
 	"encoding/json"
 	"github.com/open-falcon/agent/gentk"
 	"io/ioutil"
+	"log"
 	"net/http"
-         "fmt"
-         "log"
-          "os/exec"
+	"os/exec"
 )
 
 var (
-	LISTEN_PORT = "net.port.listen"
-	PROBLEM = "PROBLEM"
+	LISTEN_PORT         = "net.port.listen"
+	PROBLEM             = "PROBLEM"
 	WXSERVER_HTTPS_PORT = "4005"
-	WXSERVER_HTTP_PORT = "4002"
-	WXSERVER_WEB_PORT = "3001"
-	WXSERVER_DEV_PORT = "17273"
-	REDIS_PORT = "6379"
+	WXSERVER_HTTP_PORT  = "4002"
+	WXSERVER_WEB_PORT   = "3001"
+	WXSERVER_DEV_PORT   = "17273"
+	REDIS_PORT          = "6379"
 )
+
 func configRestoreRoutes() {
 	http.HandleFunc("/restore", func(w http.ResponseWriter, r *http.Request) {
 		var uniqueId, tok = gentk.VerifyToken(r)
@@ -70,50 +70,57 @@ func configRestoreRoutes() {
 		}
 
 		switch tags {
-			case WXSERVER_HTTPS_PORT:
-			case WXSERVER_HTTP_PORT:
-			case WXSERVER_WEB_PORT:
-			case WXSERVER_DEV_PORT:
-				restartWxserver()
-				break;
+		case WXSERVER_HTTPS_PORT:
+		case WXSERVER_HTTP_PORT:
+		case WXSERVER_WEB_PORT:
+		case WXSERVER_DEV_PORT:
+			restartWxserver()
+			break
 
-			case REDIS_PORT:
-				restartRedis()
-				break;
-			default:
-			      test()
-                             break;
+		case REDIS_PORT:
+			restartRedis()
+			break
+		default:
+			test()
+			break
 		}
-
 
 	})
 }
 
 func restartWxserver() {
-		cmd := "./restartWxserver.sh"
-		out, err := exec.Command("sh", "-c", cmd).Output()
-		if err != nil {
-			fmt.Printf("%s", err)
-		}
-		fmt.Printf("%s", out)
+	dir := g.Config().Plugin.Dir
+	parentDir := file.Dir(dir)
+	cmd := exec.Command(dir + "/restartWxserver.sh")
+	cmd.Dir = parentDir
+	err := cmd.Run()
+	if err != nil {
+		log.Printf("run cmd in dir:%s fail. error: %s", dir, err))
+		return
+	}
+
+	fmt.Println("run cmd " + dir + "/restartWxserver.sh")
 }
 
 func restartRedis() {
-		cmd := "./restartRedis.sh"
-		out, err := exec.Command("sh", "-c", cmd).Output()
-		if err != nil {
-			fmt.Printf("%s", err)
-		}
-		fmt.Printf("%s", out)
+	dir := g.Config().Plugin.Dir
+	parentDir := file.Dir(dir)
+	cmd := exec.Command(dir + "/restartRedis.sh")
+	cmd.Dir = parentDir
+	err := cmd.Run()
+	if err != nil {
+		log.Printf("run cmd in dir:%s fail. error: %s", dir, err))
+		return
+	}
+
+	fmt.Println("run cmd " + dir + "/restartWxserver.sh")
 }
 
 func test() {
-		cmd := "./test.sh"
-		out, err := exec.Command("sh", "-c", cmd).Output()
-		if err != nil {
-			fmt.Printf("%s", err)
-		}
-		fmt.Printf("%s", out)
+	cmd := "./test.sh"
+	out, err := exec.Command("/home/riguang/open-falcon/src/github.com/open-falcon/agent/test.sh").Output()
+	if err != nil {
+		fmt.Printf("%s", err)
+	}
+	fmt.Printf("%s", out)
 }
-
-
