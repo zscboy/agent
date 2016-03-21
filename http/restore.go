@@ -95,7 +95,7 @@ func restartWxserver() {
 	cmd.Dir = parentDir
 	err := cmd.Run()
 	if err != nil {
-		log.Printf("run cmd in dir:%s fail. error: %s", dir, err))
+		log.Printf("run cmd in dir:%s fail. error: %s", dir, err)
 		return
 	}
 
@@ -109,7 +109,7 @@ func restartRedis() {
 	cmd.Dir = parentDir
 	err := cmd.Run()
 	if err != nil {
-		log.Printf("run cmd in dir:%s fail. error: %s", dir, err))
+		log.Printf("run cmd in dir:%s fail. error: %s", dir, err)
 		return
 	}
 
