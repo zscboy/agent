@@ -10,13 +10,13 @@ import (
 )
 
 var (
-	LISTEN_PORT         = "net.port.listen"
-	PROBLEM             = "PROBLEM"
-	WXSERVER_HTTPS_PORT = "4005"
-	WXSERVER_HTTP_PORT  = "4002"
-	WXSERVER_WEB_PORT   = "3001"
-	WXSERVER_DEV_PORT   = "17273"
-	REDIS_PORT          = "6379"
+	LISTEN_PORT              = "net.port.listen"
+	PROBLEM                  = "PROBLEM"
+	TAGS_WXSERVER_HTTPS_PORT = "port=4005"
+	TAGS_WXSERVER_HTTP_PORT  = "port=4002"
+	TAGS_WXSERVER_WEB_PORT   = "port=3001"
+	TAGS_WXSERVER_DEV_PORT   = "port=17273"
+	TAGS_REDIS_PORT          = "port=6379"
 )
 
 func configRestoreRoutes() {
@@ -70,14 +70,14 @@ func configRestoreRoutes() {
 		}
 
 		switch tags {
-		case WXSERVER_HTTPS_PORT:
-		case WXSERVER_HTTP_PORT:
-		case WXSERVER_WEB_PORT:
-		case WXSERVER_DEV_PORT:
+		case TAGS_WXSERVER_HTTPS_PORT:
+		case TAGS_WXSERVER_HTTP_PORT:
+		case TAGS_WXSERVER_WEB_PORT:
+		case TAGS_WXSERVER_DEV_PORT:
 			restartWxserver()
 			break
 
-		case REDIS_PORT:
+		case TAGS_REDIS_PORT:
 			restartRedis()
 			break
 		default:
