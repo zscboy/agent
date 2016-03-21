@@ -116,14 +116,19 @@ func restartRedis() {
 		return
 	}
 
-	fmt.Println("run cmd " + dir + "/restartWxserver.sh")
+	fmt.Println("run cmd " + dir + "/restartRedis.sh")
 }
 
 func test() {
-//	cmd := "./test.sh"
-	out, err := exec.Command("/home/riguang/open-falcon/src/github.com/open-falcon/agent/test.sh").Output()
+	dir := g.Config().Plugin.Dir
+	parentDir := file.Dir(dir)
+	cmd := exec.Command(dir + "/test.sh")
+	cmd.Dir = parentDir
+	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("%s", err)
+		log.Printf("run cmd in dir:%s fail. error: %s", dir, err)
+		return
 	}
-	fmt.Printf("%s", out)
+
+	fmt.Println("run cmd " + dir + "/test.sh")
 }
