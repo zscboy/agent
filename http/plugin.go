@@ -7,6 +7,7 @@ import (
 	"github.com/toolkits/file"
 	"net/http"
 	"os/exec"
+        "log"
 )
 
 func configPluginRoutes() {
@@ -18,6 +19,8 @@ func configPluginRoutes() {
 
 		dir := g.Config().Plugin.Dir
 		parentDir := file.Dir(dir)
+                log.Println("parentDir: ", parentDir)
+                log.Println("dir: ", dir)
 		file.InsureDir(parentDir)
 
 		if file.IsExist(dir) {

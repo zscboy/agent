@@ -3,6 +3,9 @@ package http
 import (
 	"encoding/json"
 	"github.com/open-falcon/agent/gentk"
+        "github.com/open-falcon/agent/g"
+        "github.com/toolkits/file"
+        "fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -117,7 +120,7 @@ func restartRedis() {
 }
 
 func test() {
-	cmd := "./test.sh"
+//	cmd := "./test.sh"
 	out, err := exec.Command("/home/riguang/open-falcon/src/github.com/open-falcon/agent/test.sh").Output()
 	if err != nil {
 		fmt.Printf("%s", err)
