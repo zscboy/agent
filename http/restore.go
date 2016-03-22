@@ -2,10 +2,10 @@ package http
 
 import (
 	"encoding/json"
+	"fmt"
+	"github.com/open-falcon/agent/g"
 	"github.com/open-falcon/agent/gentk"
-        "github.com/open-falcon/agent/g"
-        "github.com/toolkits/file"
-        "fmt"
+	"github.com/toolkits/file"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -72,12 +72,14 @@ func configRestoreRoutes() {
 			return
 		}
 
-                log.Println("tags: ", tags)
+		log.Printf("tags:%s", tags)
+		if tags == TAGS_WXSERVER_HTTPS_PORT {
+			log.Println("tags == TAGS_WXSERVER_HTTPS_PORT")
+		} else {
+			log.Println("tags != TAGS_WXSERVER_HTTPS_PORT")
+		}
 		switch tags {
-		case TAGS_WXSERVER_HTTPS_PORT:
-		case TAGS_WXSERVER_HTTP_PORT:
-		case TAGS_WXSERVER_WEB_PORT:
-		case TAGS_WXSERVER_DEV_PORT:
+		case TAGS_WXSERVER_HTTPS_PORT, TAGS_WXSERVER_HTTP_PORT, TAGS_WXSERVER_WEB_PORT, TAGS_WXSERVER_DEV_PORT:
 			restartWxserver()
 			break
 
@@ -93,7 +95,7 @@ func configRestoreRoutes() {
 }
 
 func restartWxserver() {
-        log.Println("restartWxserver")
+	log.Println("restartWxserver")
 	dir := g.Config().Plugin.Dir
 	parentDir := file.Dir(dir)
 	cmd := exec.Command(dir + "/restartWxserver.sh")
