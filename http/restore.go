@@ -72,12 +72,6 @@ func configRestoreRoutes() {
 			return
 		}
 
-		log.Printf("tags:%s", tags)
-		if tags == TAGS_WXSERVER_HTTPS_PORT {
-			log.Println("tags == TAGS_WXSERVER_HTTPS_PORT")
-		} else {
-			log.Println("tags != TAGS_WXSERVER_HTTPS_PORT")
-		}
 		switch tags {
 		case TAGS_WXSERVER_HTTPS_PORT, TAGS_WXSERVER_HTTP_PORT, TAGS_WXSERVER_WEB_PORT, TAGS_WXSERVER_DEV_PORT:
 			restartWxserver()

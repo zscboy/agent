@@ -14,18 +14,18 @@ type Dto struct {
 }
 
 func init() {
-	configAdminRoutes()
-	configCpuRoutes()
-	configDfRoutes()
-	configHealthRoutes()
-	configIoStatRoutes()
-	configKernelRoutes()
-	configMemoryRoutes()
-	configPageRoutes()
+	//configAdminRoutes()
+	//configCpuRoutes()
+	//configDfRoutes()
+	//configHealthRoutes()
+	//configIoStatRoutes()
+	//configKernelRoutes()
+	//configMemoryRoutes()
+	//configPageRoutes()
 	configPluginRoutes()
-	configPushRoutes()
-	configRunRoutes()
-	configSystemRoutes()
+	//configPushRoutes()
+	//configRunRoutes()
+	//configSystemRoutes()
 	configRestoreRoutes()
 }
 
