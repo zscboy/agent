@@ -3,7 +3,6 @@ package http
 import (
 	"fmt"
 	"github.com/open-falcon/agent/g"
-	"github.com/open-falcon/agent/plugins"
 	"github.com/toolkits/file"
 	"log"
 	"net/http"
