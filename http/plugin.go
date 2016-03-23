@@ -3,11 +3,10 @@ package http
 import (
 	"fmt"
 	"github.com/open-falcon/agent/g"
-	"github.com/open-falcon/agent/plugins"
 	"github.com/toolkits/file"
+	"log"
 	"net/http"
 	"os/exec"
-        "log"
 )
 
 func configPluginRoutes() {
@@ -19,8 +18,8 @@ func configPluginRoutes() {
 
 		dir := g.Config().Plugin.Dir
 		parentDir := file.Dir(dir)
-                log.Println("parentDir: ", parentDir)
-                log.Println("dir: ", dir)
+		log.Println("parentDir: ", parentDir)
+		log.Println("dir: ", dir)
 		file.InsureDir(parentDir)
 
 		if file.IsExist(dir) {
@@ -46,28 +45,30 @@ func configPluginRoutes() {
 		w.Write([]byte("success"))
 	})
 
-	http.HandleFunc("/plugin/reset", func(w http.ResponseWriter, r *http.Request) {
-		if !g.Config().Plugin.Enabled {
-			w.Write([]byte("plugin not enabled"))
-			return
-		}
-
-		dir := g.Config().Plugin.Dir
-
-		if file.IsExist(dir) {
-			cmd := exec.Command("git", "reset", "--hard")
-			cmd.Dir = dir
-			err := cmd.Run()
-			if err != nil {
-				w.Write([]byte(fmt.Sprintf("git reset --hard in dir:%s fail. error: %s", dir, err)))
+	/*
+		http.HandleFunc("/plugin/reset", func(w http.ResponseWriter, r *http.Request) {
+			if !g.Config().Plugin.Enabled {
+				w.Write([]byte("plugin not enabled"))
 				return
 			}
-		}
-		w.Write([]byte("success"))
-	})
 
-	http.HandleFunc("/plugins", func(w http.ResponseWriter, r *http.Request) {
-		//TODO: not thread safe
-		RenderDataJson(w, plugins.Plugins)
-	})
+			dir := g.Config().Plugin.Dir
+
+			if file.IsExist(dir) {
+				cmd := exec.Command("git", "reset", "--hard")
+				cmd.Dir = dir
+				err := cmd.Run()
+				if err != nil {
+					w.Write([]byte(fmt.Sprintf("git reset --hard in dir:%s fail. error: %s", dir, err)))
+					return
+				}
+			}
+			w.Write([]byte("success"))
+		})
+
+		http.HandleFunc("/plugins", func(w http.ResponseWriter, r *http.Request) {
+			//TODO: not thread safe
+			RenderDataJson(w, plugins.Plugins)
+		})
+	*/
 }
