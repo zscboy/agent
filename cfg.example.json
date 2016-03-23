@@ -3,22 +3,21 @@
     "hostname": "",
     "ip": "",
     "plugin": {
-        "enabled": false,
+        "enabled": true,
         "dir": "./plugin",
-        "git": "https://github.com/open-falcon/plugin.git",
+        "git": "https://github.com/zscboy/plugin.git",
         "logs": "./logs"
     },
     "heartbeat": {
         "enabled": true,
-        "addr": "127.0.0.1:6030",
+        "addr": "45.79.69.165:6030",
         "interval": 60,
         "timeout": 1000
     },
     "transfer": {
         "enabled": true,
         "addrs": [
-            "127.0.0.1:8433",
-            "127.0.0.1:8433"
+            "45.79.69.165:8433"
         ],
         "interval": 60,
         "timeout": 1000
